@@ -60,18 +60,22 @@ function getCountryData() {
                 )[0];
                 // print the most recent covid-19 updates data
                 country.textContent = responseJson[i].Country;
+                // let recovered =
+                //   responseJson2[mostRecentIndex].Confirmed -
+                //   responseJson2[mostRecentIndex].Active -
+                //   responseJson2[mostRecentIndex].Deaths;
                 confirm.innerHTML =
                   "<b>" +
                   mostRecentData +
                   "</b>" +
                   "</br>" +
-                  " Confirmed: " +
-                  responseJson2[mostRecentIndex].Confirmed +
-                  "</br>" +
-                  " Active: " +
+                  "Active: " +
                   responseJson2[mostRecentIndex].Active +
+                  // "</br>" +
+                  // "Recovered: " +
+                  // recovered +
                   "</br>" +
-                  " Deaths: " +
+                  "Deaths: " +
                   responseJson2[mostRecentIndex].Deaths;
 
                 // create country flag
