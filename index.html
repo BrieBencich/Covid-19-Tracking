@@ -6,84 +6,94 @@
     <title>Covid-19 Tracking App</title>
     <link
       rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
     />
     <link rel="stylesheet" href="./assets/css/styles.css" />
-    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
-    <script src="https://cdn.amcharts.com/lib/4/maps.js"></script>
-    <script src="https://cdn.amcharts.com/lib/4/geodata/worldLow.js"></script>
-    <script src="https://covid.amCharts.com/data/js/world_timeline.js"></script>
-    <script src="https://covid.amCharts.com/data/js/total_timeline.js"></script>
-    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
   </head>
   <body>
     <!-- header -->
-    <header class="container-fluid text-center text-white bg-danger p-2">
-      <h1>Covid-19 Tracking App</h1>
-    </header>
+    <section class="hero is-danger">
+      <div class="container p-3">
+        <div class="columns is-centered is-vcentered is-mobile">
+          <div class="column is-narrow has-text-centered">
+            <h1 class="title is-1 is-align-self-center">
+              Covid-19 Tracking App
+            </h1>
+            <h5 class="subtitle is-align-self-center">
+              Search for Covid-19 Updates
+            </h5>
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- main -->
-    <div class="container-fluid">
-      <div class="row">
-        <!-- left column -->
-        <aside class="col-12 col-md-4 col-xl-3 text-white bg-dark">
-          <h5 class="mt-1">Search for Covid-19 Updates:</h5>
-          <!-- search 1 -->
-          <div class="form-inline form-group">
+    <div class="tile is-parent">
+      <!-- left column -->
+      <aside class="tile is-child notification has-background-grey-dark">
+        <!-- search 1 -->
+        <div class="field has-addons">
+          <div class="control">
             <input
-              class="form-control"
-              type="text"
               id="input"
+              class="input"
+              type="text"
               placeholder="Search a country"
             />
-            <button class="btn btn-primary" id="search-button">
-              <i class="fa fa-search"></i>
-            </button>
           </div>
-          <!-- search 2 -->
-          <div class="form-inline form-group">
+          <div class="control">
+            <a class="button is-info">
+              <i class="fa fa-search"></i>
+            </a>
+          </div>
+        </div>
+        <!-- search 2 -->
+        <div class="field has-addons">
+          <div class="control">
             <input
-              class="form-control"
-              type="text"
               id="input"
+              class="input"
+              type="text"
               placeholder="Search a province"
             />
-            <button class="btn btn-primary" id="search-button">
-              <i class="fa fa-search"></i>
-            </button>
           </div>
-          <!-- search 3 -->
-          <div class="form-inline form-group">
+          <div class="control">
+            <a class="button is-info">
+              <i class="fa fa-search"></i>
+            </a>
+          </div>
+        </div>
+        <!-- search 3 -->
+        <div class="field has-addons">
+          <div class="control">
             <input
-              class="form-control"
-              type="text"
               id="input"
+              class="input"
+              type="text"
               placeholder="Search US city only"
             />
-            <button class="btn btn-primary" id="search-button">
+          </div>
+          <div class="control">
+            <a class="button is-info">
               <i class="fa fa-search"></i>
-            </button>
+            </a>
           </div>
-          <!-- history list-->
-          <ul class="list-group history"></ul>
-        </aside>
-
-        <!-- right column -->
-        <div class="col data-today right-col">
-          <div class="mt-3">
-            <div class="d-flex mr-1">
-              <div id="flag" class="mr-3"></div>
-              <h2 id="country" class="pt-3"></h2>
-            </div>
-            <p id="confirm"></p>
-          </div>
-          <div id="chartdiv" class="row mt-3 map"></div>
         </div>
+        <!-- history list-->
+        <ul class="list-group history"></ul>
+      </aside>
+
+      <!-- right column -->
+      <div
+        class="tile is-child notification has-background-white-ter is-vertical is-9"
+      >
+        <div class="mt-3">
+          <div class="d-flex mr-1">
+            <div id="flag" class="mr-3"></div>
+            <h2 id="country" class="pt-3"></h2>
+          </div>
+          <p id="confirm"></p>
+        </div>
+        <div id="chartdiv" class="row mt-3 map"></div>
       </div>
     </div>
 
@@ -107,6 +117,16 @@
 
     <!-- scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"
+    ></script>
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/maps.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/geodata/worldLow.js"></script>
+    <script src="https://covid.amCharts.com/data/js/world_timeline.js"></script>
+    <script src="https://covid.amCharts.com/data/js/total_timeline.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
     <script src="./assets/js/script.js"></script>
   </body>
 </html>

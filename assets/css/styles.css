@@ -1,5 +1,5 @@
 * {
-  box-sizing: content-box;
+  box-sizing: border-box;
 }
 
 #info-wrap {
@@ -38,25 +38,6 @@ body {
   padding: 20px 50px 40px 30px;
 }
 
-.form {
-  padding: 10px 60px 0px 20px;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.form input {
-  border: 1px solid black;
-  width: 20%;
-  font-size: 20px;
-}
-
-.button {
-  font-size: 20px;
-  font-weight: bold;
-  background-color: black;
-  color: white;
-}
-
 .form-control {
   height: auto;
   width: auto;
@@ -72,4 +53,11 @@ body {
 }
 .right-col {
   background-color: rgb(226, 225, 225);
+}
+
+.tile.is-parent {
+  padding: 0;
+}
+.notification {
+  border-radius: 0;
 }
