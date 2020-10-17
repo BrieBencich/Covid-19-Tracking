@@ -1,11 +1,17 @@
 // initial var
 let input = "";
 
-// click the button to submit a country input & fetch data
+// Input & Search 1:
+// Click the button to submit a country input & fetch data
 $("#search-button").on("click", function () {
   document.querySelector("img")?.remove();
-  console.log("this search button is clicked");
+  console.log("country search button is clicked");
   input = $(this).siblings("#input").val();
+
+  if (input === "US" || input === "us" || input === "usa" || input === "USA") {
+    input = "United States of America";
+  }
+
   console.log(input);
   // call the fetch function
   getCountryData();
@@ -13,6 +19,7 @@ $("#search-button").on("click", function () {
   $(this).siblings("#input").val("");
 });
 
+// Fetch 1:
 // Get all the available countries & receiving the covid-19 updates
 function getCountryData() {
   fetch("https://api.covid19api.com/countries")
@@ -33,6 +40,7 @@ function getCountryData() {
           console.log(responseJson[i]);
 
           let confirm = document.querySelector("#confirm");
+          let country = document.querySelector("#country");
 
           function getDataByCountry() {
             fetch(
@@ -51,13 +59,20 @@ function getCountryData() {
                   "T"
                 )[0];
                 // print the most recent covid-19 updates data
-                confirm.textContent =
+                country.textContent = responseJson[i].Country;
+                confirm.innerHTML =
+                  "<b>" +
                   mostRecentData +
-                  ": " +
-                  responseJson[i].Country +
-                  "'s " +
-                  "active cases: " +
-                  responseJson2[mostRecentIndex].Active;
+                  "</b>" +
+                  "</br>" +
+                  " Confirmed: " +
+                  responseJson2[mostRecentIndex].Confirmed +
+                  "</br>" +
+                  " Active: " +
+                  responseJson2[mostRecentIndex].Active +
+                  "</br>" +
+                  " Deaths: " +
+                  responseJson2[mostRecentIndex].Deaths;
 
                 // create country flag
                 let flagDiv = document.querySelector("#flag");
@@ -81,6 +96,7 @@ function getCountryData() {
       }
     });
 }
+
 //////////////////////////////// MAP AREA ////////////////////////////////
 am4core.ready(function () {
   //////////////////////////////// KEEP TOP /////////////////////////////
@@ -185,7 +201,7 @@ am4core.ready(function () {
 
   // Create hover state and set alternative fill color
   let hs = polygonTemplate.states.create("hover");
-  hs.properties.fill = am4core.color("#ff8c4a");
+  hs.properties.fill = am4core.color("#dc3545");
 
   // Remove Antarctica
   polygonSeries.exclude = ["AQ"];

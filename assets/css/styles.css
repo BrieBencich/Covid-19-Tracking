@@ -1,17 +1,18 @@
+* {
+  box-sizing: content-box;
+}
+
 #info-wrap {
   background-color: #bebebe;
 }
 
-/*** #chartdiv {
-  max-width: 100%;
-  height: 800px;
-  background-color: #a1a1a1;
+/*** test & choose a color
 }***/
-h1 {
-  background-color: #367b25;
+/*** h1 {
+background-color: #367b25;
   background-color: #727272;
   background-color: #ff8c4a;
-}
+}***/
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
@@ -20,5 +21,52 @@ body {
 
 #chartdiv {
   width: 100%;
-  height: 98vh;
+  height: 70vh;
+}
+
+.main-header {
+  background-color: brown;
+  width: 100%;
+  height: 150px;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.main-heading {
+  font-size: 25px;
+  color: white;
+  padding: 20px 50px 40px 30px;
+}
+
+.form {
+  padding: 10px 60px 0px 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.form input {
+  border: 1px solid black;
+  width: 20%;
+  font-size: 20px;
+}
+
+.button {
+  font-size: 20px;
+  font-weight: bold;
+  background-color: black;
+  color: white;
+}
+
+.form-control {
+  height: auto;
+  width: auto;
+}
+
+#country {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+#confirm {
+  margin-left: 5.3em;
 }

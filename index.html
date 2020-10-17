@@ -3,12 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Covid-19 Tracking</title>
+    <title>Covid-19 Tracking App</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <link rel="stylesheet" href="./assets/css/styles.css" />
     <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
@@ -19,8 +23,72 @@
     <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
   </head>
   <body>
-    <!-- testings -->
+    <!-- header -->
+    <header class="container-fluid text-center text-white bg-danger p-2">
+      <h1>Covid-19 Tracking App</h1>
+    </header>
+    <!-- main -->
+    <div class="container-fluid">
+      <div class="row">
+        <!-- left column -->
+        <aside class="col-12 col-md-4 col-xl-3 text-white bg-dark">
+          <h5 class="mt-1">Search for Covid-19 Updates:</h5>
+          <!-- search 1 -->
+          <div class="form-inline form-group">
+            <input
+              class="form-control"
+              type="text"
+              id="input"
+              placeholder="Search a country"
+            />
+            <button class="btn btn-primary" id="search-button">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+          <!-- search 2 -->
+          <div class="form-inline form-group">
+            <input
+              class="form-control"
+              type="text"
+              id="input"
+              placeholder="Search a province"
+            />
+            <button class="btn btn-primary" id="search-button">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+          <!-- search 3 -->
+          <div class="form-inline form-group">
+            <input
+              class="form-control"
+              type="text"
+              id="input"
+              placeholder="Search US city only"
+            />
+            <button class="btn btn-primary" id="search-button">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+          <!-- history list-->
+          <ul class="list-group history"></ul>
+        </aside>
 
+        <!-- right column -->
+        <div class="col data-today">
+          <div class="mt-3">
+            <div class="d-flex mr-1">
+              <div id="flag" class="mr-3"></div>
+              <h2 id="country" class="pt-3"></h2>
+            </div>
+            <p id="confirm"></p>
+          </div>
+          <div id="chartdiv" class="row mt-3 map bg-light"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- the previous search area -->
+    <!-- 
     <div id="info-wrap" class="d-flex flex-wrap justify-content-between">
       <div>
         <input type="text" id="input" placeholder="Type a country/regin" />
@@ -35,10 +103,8 @@
         <button id="search-button">search</button>
         <p>For US City Only</p>
       </div>
-      <div id="flag"></div>
-      <p id="confirm"></p>
-    </div>
-    <div id="chartdiv"></div>
+    </div> -->
+
     <!-- scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="./assets/js/script.js"></script>
