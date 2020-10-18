@@ -3,12 +3,19 @@ let input = "";
 
 // Input & Search 1:
 // Click the button to submit a country input & fetch data
-$("#search-button").on("click", function () {
+$("#search-buttonC").on("click", function () {
   document.querySelector("img")?.remove();
   console.log("country search button is clicked");
-  input = $(this).siblings("#input").val();
+  input = $(this).siblings("#input-div").children("#input").val();
 
-  if (input === "US" || input === "us" || input === "usa" || input === "USA") {
+  if (
+    input === "US" ||
+    input === "us" ||
+    input === "usa" ||
+    input === "USA" ||
+    input === "united states" ||
+    input === "america"
+  ) {
     input = "United States of America";
   }
 
@@ -16,7 +23,7 @@ $("#search-button").on("click", function () {
   // call the fetch function
   getCountryData();
   // clear the input space after each search
-  $(this).siblings("#input").val("");
+  $(this).siblings("#input-div").children("#input").val("");
 });
 
 // Fetch 1:
@@ -29,7 +36,7 @@ function getCountryData() {
       }
     })
     .then(function (responseJson) {
-      // Returns all the available countries and provinces, as well as the country slug for per country requests.
+      // Returns all the available countries, as well as the country slug for per country requests.
       console.log(responseJson);
       for (let i = 0; i < responseJson.length; i++) {
         // Returns the input country
@@ -40,7 +47,7 @@ function getCountryData() {
           console.log(responseJson[i]);
 
           let confirm = document.querySelector("#confirm");
-          let country = document.querySelector("#country");
+          let country = document.querySelector("#country-province");
 
           function getDataByCountry() {
             fetch(
@@ -60,23 +67,22 @@ function getCountryData() {
                 )[0];
                 // print the most recent covid-19 updates data
                 country.textContent = responseJson[i].Country;
+                if (responseJson[i].Country === "United States of America") {
+                  country.textContent = "US";
+                }
                 // let recovered =
                 //   responseJson2[mostRecentIndex].Confirmed -
                 //   responseJson2[mostRecentIndex].Active -
                 //   responseJson2[mostRecentIndex].Deaths;
-                confirm.innerHTML =
-                  "<b>" +
+                confirm.textContent =
                   mostRecentData +
-                  "</b>" +
-                  "</br>" +
-                  "Active: " +
+                  ": " +
+                  " Active: " +
                   responseJson2[mostRecentIndex].Active +
-                  // "</br>" +
-                  // "Recovered: " +
-                  // recovered +
-                  "</br>" +
-                  "Deaths: " +
-                  responseJson2[mostRecentIndex].Deaths;
+                  ", " +
+                  " Deaths: " +
+                  responseJson2[mostRecentIndex].Deaths +
+                  ".";
 
                 // create country flag
                 let flagDiv = document.querySelector("#flag");
@@ -96,6 +102,84 @@ function getCountryData() {
         }
         // if the response doesn't include the user's input country/area, display a message but not an alert
         else {
+        }
+      }
+    });
+}
+
+// Input & Search 2:
+// Click the button to submit a province input & fetch data
+$("#search-buttonP").on("click", function () {
+  document.querySelector("img")?.remove();
+  console.log("province search button is clicked");
+  input = $(this).siblings("#input-div").children("#input").val();
+
+  console.log(input);
+  // call the fetch function
+  getProvinceData();
+  // clear the input space after each search
+  $(this).siblings("#input-div").children("#input").val("");
+});
+
+// title case function the input for fetch data
+function capitalizeFirstLetter(string) {
+  return string[0].toUpperCase() + string.slice(1).toLowerCase();
+}
+function titleCase(string) {
+  return string
+    .split(" ")
+    .map((x) => capitalizeFirstLetter(x))
+    .join(" ");
+}
+
+// Fetch 2:
+// Get all the available countries & receiving the covid-19 updates
+function getProvinceData() {
+  fetch("https://www.trackcorona.live/api/provinces")
+    .then(function (response) {
+      if (response.ok) {
+        return response.json();
+      }
+    })
+    .then(function (responseJson) {
+      // Returns all the available province.
+      console.log(responseJson);
+      for (let i = 0; i < responseJson.data.length; i++) {
+        // Returns the input country
+        if (responseJson.data[i].location.includes(titleCase(input))) {
+          console.log(responseJson.data[i].location);
+          console.log(responseJson.data[i]);
+
+          let confirm = document.querySelector("#confirm");
+          let province = document.querySelector("#country-province");
+          let mostRecentData = responseJson.data[i].updated.split(" ")[0];
+
+          province.textContent =
+            responseJson.data[i].country_code.toUpperCase() +
+            "/" +
+            responseJson.data[i].location;
+
+          confirm.textContent =
+            mostRecentData +
+            ": " +
+            " Confirmed: " +
+            responseJson.data[i].confirmed +
+            ", " +
+            " Deaths: " +
+            responseJson.data[i].dead +
+            ".";
+
+          // create country flag
+          let flagDiv = document.querySelector("#flag");
+          let countryFlag = document.createElement("img");
+
+          countryFlag.setAttribute(
+            "src",
+            "https://www.countryflags.io/" +
+              responseJson.data[i].country_code +
+              "/flat/64.png"
+          );
+          flagDiv.appendChild(countryFlag);
         }
       }
     });

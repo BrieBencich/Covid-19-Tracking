@@ -43,14 +43,11 @@ body {
   width: auto;
 }
 
-#country {
+#country-province {
   font-size: 1.8rem;
   font-weight: 600;
 }
 
-#confirm {
-  margin-left: 5.3em;
-}
 .right-col {
   background-color: rgb(226, 225, 225);
 }
@@ -60,4 +57,7 @@ body {
 }
 .notification {
   border-radius: 0;
+}
+.display-flex {
+  display: flex;
 }
