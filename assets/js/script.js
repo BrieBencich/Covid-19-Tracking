@@ -38,6 +38,7 @@ function saveInputLocal() {
       document.querySelector("img")?.remove();
       getCountryData();
       getProvinceData();
+      getCityData();
       document.querySelector("img")?.remove();
     }
   };
@@ -61,6 +62,7 @@ $(".list-group-item").on("click", function () {
     document.querySelector("img")?.remove();
     getCountryData();
     getProvinceData();
+    getCityData();
     document.querySelector("img")?.remove();
   }
 });
@@ -298,6 +300,13 @@ function getCityData() {
           let confirm = document.querySelector("#confirm");
           let city = document.querySelector("#country-province");
           let mostRecentData = responseJson.data[i].updated.split(" ")[0];
+
+          if (responseJson.data[i].location === "Come to Beijing from abroad") {
+            responseJson.data[i].location = "Beijing";
+          }
+          if (responseJson.data[i].location === "Foreign to Shanghai") {
+            responseJson.data[i].location = "Shanghai";
+          }
 
           city.textContent =
             responseJson.data[i].country_code.toUpperCase() +
