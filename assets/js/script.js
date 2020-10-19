@@ -1,6 +1,70 @@
 // initial var
 let input = "";
 
+// get the input search stored in the array
+let arrayInput = JSON.parse(localStorage.getItem("arrayInput")) || [];
+
+// title case function, to title case the input
+function capitalizeFirstLetter(string) {
+  return string[0].toUpperCase() + string.slice(1).toLowerCase();
+}
+function titleCase(string) {
+  return string
+    .split(" ")
+    .map((x) => capitalizeFirstLetter(x))
+    .join(" ");
+}
+
+// save input as history button function
+function saveInputLocal() {
+  // if the input saved before, don't need to save again
+  if (arrayInput.includes(titleCase(input))) {
+    return;
+  }
+
+  // local storage - save city inputs to the array & create city list on the left panel
+  arrayInput.push(titleCase(input));
+  localStorage.setItem("arrayInput", JSON.stringify(arrayInput));
+  let inputList = $("#list-group");
+  let inputBtn = document.createElement("button");
+  inputBtn.classList = "button is-fullwidth list-group-item";
+  inputBtn.textContent = titleCase(input);
+  inputList.append(inputBtn);
+
+  inputBtn.onclick = function () {
+    input = inputBtn.textContent;
+    // invoke the search function
+    for (let i = 0; i < 1; i++) {
+      document.querySelector("img")?.remove();
+      getCountryData();
+      getProvinceData();
+      document.querySelector("img")?.remove();
+    }
+  };
+}
+
+// initial print the city lists
+for (let i = 0; i < arrayInput.length; i++) {
+  let inputList = $("#list-group");
+  let inputBtn = document.createElement("button");
+  inputBtn.classList = "button is-fullwidth list-group-item";
+  inputBtn.textContent = arrayInput[i];
+  inputList.append(inputBtn);
+}
+
+// stored search, click & use it to fetch
+$(".list-group-item").on("click", function () {
+  input = $(this).text();
+  console.log(input);
+  // invoke the search function
+  for (let i = 0; i < 1; i++) {
+    document.querySelector("img")?.remove();
+    getCountryData();
+    getProvinceData();
+    document.querySelector("img")?.remove();
+  }
+});
+
 // Input & Search 1:
 // Click the button to submit a country input & fetch data
 $("#search-buttonC").on("click", function () {
@@ -16,12 +80,13 @@ $("#search-buttonC").on("click", function () {
     input === "united states" ||
     input === "america"
   ) {
-    input = "United States of America";
+    input = "United States";
   }
 
   console.log(input);
   // call the fetch function
   getCountryData();
+  saveInputLocal();
   // clear the input space after each search
   $(this).siblings("#input-div").children("#input").val("");
 });
@@ -41,7 +106,7 @@ function getCountryData() {
       for (let i = 0; i < responseJson.length; i++) {
         // Returns the input country
         if (
-          responseJson[i].Country.includes(input) ||
+          responseJson[i].Country.startsWith(input) ||
           responseJson[i].Slug.includes(input)
         ) {
           console.log(responseJson[i]);
@@ -85,6 +150,7 @@ function getCountryData() {
                   ".";
 
                 // create country flag
+                document.querySelector("img")?.remove();
                 let flagDiv = document.querySelector("#flag");
                 let countryFlag = document.createElement("img");
 
@@ -114,23 +180,17 @@ $("#search-buttonP").on("click", function () {
   console.log("province search button is clicked");
   input = $(this).siblings("#input-div").children("#input").val();
 
+  if (input === "china" || input === "China" || input === "CHINA") {
+    return;
+  }
+
   console.log(input);
   // call the fetch function
   getProvinceData();
+  saveInputLocal();
   // clear the input space after each search
   $(this).siblings("#input-div").children("#input").val("");
 });
-
-// title case function the input for fetch data
-function capitalizeFirstLetter(string) {
-  return string[0].toUpperCase() + string.slice(1).toLowerCase();
-}
-function titleCase(string) {
-  return string
-    .split(" ")
-    .map((x) => capitalizeFirstLetter(x))
-    .join(" ");
-}
 
 // Fetch 2:
 // Get all the available countries & receiving the covid-19 updates
@@ -170,6 +230,7 @@ function getProvinceData() {
             ".";
 
           // create country flag
+          document.querySelector("img")?.remove();
           let flagDiv = document.querySelector("#flag");
           let countryFlag = document.createElement("img");
 
@@ -180,6 +241,7 @@ function getProvinceData() {
               "/flat/64.png"
           );
           flagDiv.appendChild(countryFlag);
+        } else {
         }
       }
     });
@@ -298,8 +360,3 @@ am4core.ready(function () {
 //////////////////////////////// END OF MAP AREA ////////////////////////////////
 
 // for everyday total number display: "https://covid-api.com/api/reports/total"
-
-// // how to capitalize first letter
-// function capitalizeFirstLetter(string) {
-//   return string.charAt(0).toUpperCase() + string.slice(1);
-// }
