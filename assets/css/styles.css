@@ -61,3 +61,18 @@ body {
 .display-flex {
   display: flex;
 }
+
+.left-column {
+  padding: 24px;
+}
+
+.clear-button-div {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.clear-button {
+  display: inline;
+}

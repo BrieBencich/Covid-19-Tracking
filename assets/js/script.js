@@ -15,14 +15,13 @@ function titleCase(string) {
     .join(" ");
 }
 
-// save input as history button function
+// save input as history -- function
 function saveInputLocal() {
   // if the input saved before, don't need to save again
   if (arrayInput.includes(titleCase(input))) {
     return;
   }
-
-  // local storage - save city inputs to the array & create city list on the left panel
+  // local storage - save inputs to the array & create history on the left panel
   arrayInput.push(titleCase(input));
   localStorage.setItem("arrayInput", JSON.stringify(arrayInput));
   let inputList = $("#list-group");
@@ -31,6 +30,7 @@ function saveInputLocal() {
   inputBtn.textContent = titleCase(input);
   inputList.append(inputBtn);
 
+  // enable the button right after the creation
   inputBtn.onclick = function () {
     input = inputBtn.textContent;
     // invoke the search function
@@ -43,7 +43,7 @@ function saveInputLocal() {
   };
 }
 
-// initial print the city lists
+// initial print the local storage
 for (let i = 0; i < arrayInput.length; i++) {
   let inputList = $("#list-group");
   let inputBtn = document.createElement("button");
@@ -64,6 +64,22 @@ $(".list-group-item").on("click", function () {
     document.querySelector("img")?.remove();
   }
 });
+
+// remove the history & clear the local storage
+function createClearButton() {
+  let = clearButtonDiv = $(".clear-button-div");
+  let = clearButton = document.createElement("button");
+  clearButton.classList =
+    "button clear-button is-link is-rounded is-danger mt-3";
+  clearButton.textContent = "Clear History";
+  clearButtonDiv.append(clearButton);
+  $(clearButton).on("click", function () {
+    $(".city-display").children(".list-group-item").remove();
+    localStorage.clear();
+    // clearButton.remove();
+  });
+}
+createClearButton();
 
 // Input & Search 1:
 // Click the button to submit a country input & fetch data
