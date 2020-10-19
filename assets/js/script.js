@@ -262,6 +262,76 @@ function getProvinceData() {
     });
 }
 
+// Input & Search 3:
+// Click the button to submit a province input & fetch data
+$("#search-button-city").on("click", function () {
+  document.querySelector("img")?.remove();
+  console.log("city search button is clicked");
+  input = $(this).siblings("#input-div").children("#input").val();
+
+  console.log(input);
+  // call the fetch function
+  getCityData();
+  saveInputLocal();
+  // clear the input space after each search
+  $(this).siblings("#input-div").children("#input").val("");
+});
+
+// Fetch 3:
+// Get all the available countries & receiving the covid-19 updates
+function getCityData() {
+  fetch("https://www.trackcorona.live/api/cities")
+    .then(function (response) {
+      if (response.ok) {
+        return response.json();
+      }
+    })
+    .then(function (responseJson) {
+      // Returns all the available province.
+      console.log(responseJson);
+      for (let i = 0; i < responseJson.data.length; i++) {
+        // Returns the input country
+        if (responseJson.data[i].location.includes(titleCase(input))) {
+          console.log(responseJson.data[i].location);
+          console.log(responseJson.data[i]);
+
+          let confirm = document.querySelector("#confirm");
+          let city = document.querySelector("#country-province");
+          let mostRecentData = responseJson.data[i].updated.split(" ")[0];
+
+          city.textContent =
+            responseJson.data[i].country_code.toUpperCase() +
+            "/" +
+            responseJson.data[i].location;
+
+          confirm.textContent =
+            mostRecentData +
+            ": " +
+            " Confirmed: " +
+            responseJson.data[i].confirmed +
+            ", " +
+            " Deaths: " +
+            responseJson.data[i].dead +
+            ".";
+
+          // create country flag
+          document.querySelector("img")?.remove();
+          let flagDiv = document.querySelector("#flag");
+          let countryFlag = document.createElement("img");
+
+          countryFlag.setAttribute(
+            "src",
+            "https://www.countryflags.io/" +
+              responseJson.data[i].country_code +
+              "/flat/64.png"
+          );
+          flagDiv.appendChild(countryFlag);
+        } else {
+        }
+      }
+    });
+}
+
 //////////////////////////////// MAP AREA ////////////////////////////////
 am4core.ready(function () {
   //////////////////////////////// KEEP TOP /////////////////////////////
