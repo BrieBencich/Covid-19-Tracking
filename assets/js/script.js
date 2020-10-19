@@ -69,8 +69,7 @@ $(".list-group-item").on("click", function () {
 function createClearButton() {
   let = clearButtonDiv = $(".clear-button-div");
   let = clearButton = document.createElement("button");
-  clearButton.classList =
-    "button clear-button is-link is-rounded is-danger mt-3";
+  clearButton.classList = "button clear-button is-rounded is-danger mt-3";
   clearButton.textContent = "Clear History";
   clearButtonDiv.append(clearButton);
   $(clearButton).on("click", function () {
