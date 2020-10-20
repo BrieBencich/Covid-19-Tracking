@@ -2,7 +2,10 @@
 let input = "";
 
 // get the input search stored in the array
-let arrayInput = JSON.parse(localStorage.getItem("arrayInput")) || [];
+// let arrayInput = JSON.parse(localStorage.getItem("arrayInput")) || [];
+let countryArray = JSON.parse(localStorage.getItem("countryArray")) || [];
+let provinceArray = JSON.parse(localStorage.getItem("provinceArray")) || [];
+let cityArray = JSON.parse(localStorage.getItem("cityArray")) || [];
 
 // title case function, to title case the input
 function capitalizeFirstLetter(string) {
@@ -15,59 +18,123 @@ function titleCase(string) {
     .join(" ");
 }
 
-// save input as history -- function
-function saveInputLocal() {
+////////////// Country Array Setup ///////////////////
+function saveCountryInputLocal() {
   // if the input saved before, don't need to save again
-  if (arrayInput.includes(titleCase(input))) {
+  if (countryArray.includes(titleCase(input))) {
     return;
   }
   // local storage - save inputs to the array & create history on the left panel
-  arrayInput.push(titleCase(input));
-  localStorage.setItem("arrayInput", JSON.stringify(arrayInput));
+  countryArray.push(titleCase(input));
+  localStorage.setItem("countryArray", JSON.stringify(countryArray));
   let inputList = $("#list-group");
   let inputBtn = document.createElement("button");
   inputBtn.classList = "button is-fullwidth list-group-item";
   inputBtn.textContent = titleCase(input);
   inputList.append(inputBtn);
-
   // enable the button right after the creation
   inputBtn.onclick = function () {
     input = inputBtn.textContent;
     // invoke the search function
-    for (let i = 0; i < 1; i++) {
-      document.querySelector("img")?.remove();
-      getCountryData();
-      getProvinceData();
-      getCityData();
-      document.querySelector("img")?.remove();
-    }
+    // document.querySelector("img")?.remove();
+    getCountryData();
+  };
+}
+// initial print the local storage
+for (let i = 0; i < countryArray.length; i++) {
+  let inputList = $("#list-group");
+  let inputBtn = document.createElement("button");
+  inputBtn.classList = "button is-fullwidth list-group-item";
+  inputBtn.textContent = countryArray[i];
+  inputList.append(inputBtn);
+}
+// stored search, click & use it to fetch
+$(".list-group-item").on("click", function () {
+  input = $(this).text();
+  // invoke the search function
+  // document.querySelector("img")?.remove();
+  getCountryData();
+});
+
+////////////// Province Array Setup ///////////////////
+function saveProvinceInputLocal() {
+  // if the input saved before, don't need to save again
+  if (provinceArray.includes(titleCase(input))) {
+    return;
+  }
+  // local storage - save inputs to the array & create history on the left panel
+  provinceArray.push(titleCase(input));
+  localStorage.setItem("provinceArray", JSON.stringify(provinceArray));
+  let inputList = $("#list-group");
+  let inputBtn = document.createElement("button");
+  inputBtn.classList = "button is-fullwidth list-group-item";
+  inputBtn.textContent = titleCase(input);
+  inputList.append(inputBtn);
+  // enable the button right after the creation
+  inputBtn.onclick = function () {
+    input = inputBtn.textContent;
+    // invoke the search function
+    document.querySelector("img")?.remove();
+    getProvinceData();
+  };
+}
+// initial print the local storage
+for (let i = 0; i < provinceArray.length; i++) {
+  let inputList = $("#list-group");
+  let inputBtn = document.createElement("button");
+  inputBtn.classList = "button is-fullwidth list-group-item";
+  inputBtn.textContent = provinceArray[i];
+  inputList.append(inputBtn);
+}
+// stored search, click & use it to fetch
+$(".list-group-item").on("click", function () {
+  input = $(this).text();
+  // invoke the search function
+  document.querySelector("img")?.remove();
+  getProvinceData();
+});
+
+////////////// City Array Setup ///////////////////
+function saveCityInputLocal() {
+  // if the input saved before, don't need to save again
+  if (cityArray.includes(titleCase(input))) {
+    return;
+  }
+  // local storage - save inputs to the array & create history on the left panel
+  cityArray.push(titleCase(input));
+  localStorage.setItem("cityArray", JSON.stringify(cityArray));
+  let inputList = $("#list-group");
+  let inputBtn = document.createElement("button");
+  inputBtn.classList = "button is-fullwidth list-group-item";
+  inputBtn.textContent = titleCase(input);
+  inputList.append(inputBtn);
+  // enable the button right after the creation
+  inputBtn.onclick = function () {
+    input = inputBtn.textContent;
+    // invoke the search function
+    document.querySelector("img")?.remove();
+    getCityData();
   };
 }
 
 // initial print the local storage
-for (let i = 0; i < arrayInput.length; i++) {
+for (let i = 0; i < cityArray.length; i++) {
   let inputList = $("#list-group");
   let inputBtn = document.createElement("button");
   inputBtn.classList = "button is-fullwidth list-group-item";
-  inputBtn.textContent = arrayInput[i];
+  inputBtn.textContent = cityArray[i];
   inputList.append(inputBtn);
 }
-
 // stored search, click & use it to fetch
 $(".list-group-item").on("click", function () {
   input = $(this).text();
-  console.log(input);
   // invoke the search function
-  for (let i = 0; i < 1; i++) {
-    document.querySelector("img")?.remove();
-    getCountryData();
-    getProvinceData();
-    getCityData();
-    document.querySelector("img")?.remove();
-  }
+  document.querySelector("img")?.remove();
+  getCityData();
 });
+//////////////// END OF ARRAY SETUP ////////////////
 
-// remove the history & clear the local storage
+// Remove the history & clear the local storage
 function createClearButton() {
   let = clearButtonDiv = $(".clear-button-div");
   let = clearButton = document.createElement("button");
@@ -82,13 +149,12 @@ function createClearButton() {
 }
 createClearButton();
 
-// Input & Search 1:
+// Input & Search 1: Country
 // Click the button to submit a country input & fetch data
 $("#search-buttonC").on("click", function () {
   document.querySelector("img")?.remove();
   console.log("country search button is clicked");
   input = $(this).siblings("#input-div").children("#input").val();
-
   if (
     input === "US" ||
     input === "us" ||
@@ -99,16 +165,14 @@ $("#search-buttonC").on("click", function () {
   ) {
     input = "United States";
   }
-
-  console.log(input);
   // call the fetch function
   getCountryData();
-  saveInputLocal();
+  saveCountryInputLocal();
   // clear the input space after each search
   $(this).siblings("#input-div").children("#input").val("");
 });
 
-// Fetch 1:
+// Fetch 1: Country
 // Get all the available countries & receiving the covid-19 updates
 function getCountryData() {
   fetch("https://api.covid19api.com/countries")
@@ -118,19 +182,13 @@ function getCountryData() {
       }
     })
     .then(function (responseJson) {
-      // Returns all the available countries, as well as the country slug for per country requests.
-      console.log(responseJson);
+      // Returns all the available countries, as well as the country slug per country requests
       for (let i = 0; i < responseJson.length; i++) {
         // Returns the input country
         if (
           responseJson[i].Country.startsWith(input) ||
           responseJson[i].Slug.includes(input)
         ) {
-          console.log(responseJson[i]);
-
-          let confirm = document.querySelector("#confirm");
-          let country = document.querySelector("#country-province");
-
           function getDataByCountry() {
             fetch(
               "https://api.covid19api.com/total/dayone/country/" +
@@ -140,22 +198,17 @@ function getCountryData() {
                 return response.json();
               })
               .then(function (responseJson2) {
-                console.log(responseJson2);
                 let mostRecentIndex = responseJson2.length - 1;
-                console.log(mostRecentIndex);
-                console.log(responseJson2[mostRecentIndex].Active);
                 let mostRecentData = responseJson2[mostRecentIndex].Date.split(
                   "T"
                 )[0];
                 // print the most recent covid-19 updates data
+                let confirm = document.querySelector("#confirm");
+                let country = document.querySelector("#country-province");
                 country.textContent = responseJson[i].Country;
                 if (responseJson[i].Country === "United States of America") {
                   country.textContent = "US";
                 }
-                // let recovered =
-                //   responseJson2[mostRecentIndex].Confirmed -
-                //   responseJson2[mostRecentIndex].Active -
-                //   responseJson2[mostRecentIndex].Deaths;
                 confirm.textContent =
                   mostRecentData +
                   ": " +
@@ -165,12 +218,10 @@ function getCountryData() {
                   " Deaths: " +
                   responseJson2[mostRecentIndex].Deaths +
                   ".";
-
                 // create country flag
                 document.querySelector("img")?.remove();
                 let flagDiv = document.querySelector("#flag");
                 let countryFlag = document.createElement("img");
-
                 countryFlag.setAttribute(
                   "src",
                   "https://www.countryflags.io/" +
@@ -190,27 +241,24 @@ function getCountryData() {
     });
 }
 
-// Input & Search 2:
+// Input & Search 2: Province
 // Click the button to submit a province input & fetch data
 $("#search-buttonP").on("click", function () {
   document.querySelector("img")?.remove();
   console.log("province search button is clicked");
   input = $(this).siblings("#input-div").children("#input").val();
-
   if (input === "china" || input === "China" || input === "CHINA") {
     return;
   }
-
-  console.log(input);
   // call the fetch function
   getProvinceData();
-  saveInputLocal();
+  saveProvinceInputLocal();
   // clear the input space after each search
   $(this).siblings("#input-div").children("#input").val("");
 });
 
-// Fetch 2:
-// Get all the available countries & receiving the covid-19 updates
+// Fetch 2: Province
+// Get all the available provinces & receiving the covid-19 updates
 function getProvinceData() {
   fetch("https://www.trackcorona.live/api/provinces")
     .then(function (response) {
@@ -220,22 +268,16 @@ function getProvinceData() {
     })
     .then(function (responseJson) {
       // Returns all the available province.
-      console.log(responseJson);
       for (let i = 0; i < responseJson.data.length; i++) {
         // Returns the input country
         if (responseJson.data[i].location.includes(titleCase(input))) {
-          console.log(responseJson.data[i].location);
-          console.log(responseJson.data[i]);
-
           let confirm = document.querySelector("#confirm");
           let province = document.querySelector("#country-province");
           let mostRecentData = responseJson.data[i].updated.split(" ")[0];
-
           province.textContent =
             responseJson.data[i].country_code.toUpperCase() +
             "/" +
             responseJson.data[i].location;
-
           confirm.textContent =
             mostRecentData +
             ": " +
@@ -245,12 +287,10 @@ function getProvinceData() {
             " Deaths: " +
             responseJson.data[i].dead +
             ".";
-
           // create country flag
           document.querySelector("img")?.remove();
           let flagDiv = document.querySelector("#flag");
           let countryFlag = document.createElement("img");
-
           countryFlag.setAttribute(
             "src",
             "https://www.countryflags.io/" +
@@ -264,23 +304,24 @@ function getProvinceData() {
     });
 }
 
-// Input & Search 3:
-// Click the button to submit a province input & fetch data
+// Input & Search 3: City
+// Click the button to submit a city input & fetch data
 $("#search-button-city").on("click", function () {
   document.querySelector("img")?.remove();
   console.log("city search button is clicked");
   input = $(this).siblings("#input-div").children("#input").val();
-
-  console.log(input);
+  if (input === "ontario" || input === "Ontario" || input === "ONTARIO") {
+    return;
+  }
   // call the fetch function
   getCityData();
-  saveInputLocal();
+  saveCityInputLocal();
   // clear the input space after each search
   $(this).siblings("#input-div").children("#input").val("");
 });
 
-// Fetch 3:
-// Get all the available countries & receiving the covid-19 updates
+// Fetch 3: City
+// Get all the available cities & receiving the covid-19 updates
 function getCityData() {
   fetch("https://www.trackcorona.live/api/cities")
     .then(function (response) {
@@ -289,30 +330,25 @@ function getCityData() {
       }
     })
     .then(function (responseJson) {
-      // Returns all the available province.
-      console.log(responseJson);
       for (let i = 0; i < responseJson.data.length; i++) {
-        // Returns the input country
+        // Returns the input city
         if (responseJson.data[i].location.includes(titleCase(input))) {
-          console.log(responseJson.data[i].location);
-          console.log(responseJson.data[i]);
-
           let confirm = document.querySelector("#confirm");
           let city = document.querySelector("#country-province");
           let mostRecentData = responseJson.data[i].updated.split(" ")[0];
-
+          if (responseJson.data[i].location === "Ontario County, New York") {
+            return;
+          }
           if (responseJson.data[i].location === "Come to Beijing from abroad") {
             responseJson.data[i].location = "Beijing";
           }
           if (responseJson.data[i].location === "Foreign to Shanghai") {
             responseJson.data[i].location = "Shanghai";
           }
-
           city.textContent =
             responseJson.data[i].country_code.toUpperCase() +
             "/" +
             responseJson.data[i].location;
-
           confirm.textContent =
             mostRecentData +
             ": " +
@@ -322,12 +358,10 @@ function getCityData() {
             " Deaths: " +
             responseJson.data[i].dead +
             ".";
-
           // create country flag
           document.querySelector("img")?.remove();
           let flagDiv = document.querySelector("#flag");
           let countryFlag = document.createElement("img");
-
           countryFlag.setAttribute(
             "src",
             "https://www.countryflags.io/" +
