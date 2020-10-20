@@ -1,11 +1,26 @@
-// initial var
+////////////// DATA PREPARATION /////////////
+
+// initial the input variable
 let input = "";
 
 // get the input search stored in the array
-// let arrayInput = JSON.parse(localStorage.getItem("arrayInput")) || [];
 let countryArray = JSON.parse(localStorage.getItem("countryArray")) || [];
 let provinceArray = JSON.parse(localStorage.getItem("provinceArray")) || [];
 let cityArray = JSON.parse(localStorage.getItem("cityArray")) || [];
+
+// Modal Setup
+let modal = document.querySelector("#modal-div");
+// modal open function
+function modalOpen() {
+  modal.style.display = "block";
+}
+// modal off function
+function modalOff() {
+  modal.style.display = "none";
+}
+$("#modal-close").on("click", function () {
+  modalOff();
+});
 
 // title case function, to title case the input
 function capitalizeFirstLetter(string) {
@@ -18,7 +33,7 @@ function titleCase(string) {
     .join(" ");
 }
 
-////////////// Country Array Setup ///////////////////
+// Country Array Setup
 function saveCountryInputLocal() {
   // if the input saved before, don't need to save again
   if (countryArray.includes(titleCase(input))) {
@@ -56,7 +71,7 @@ $(".list-group-item").on("click", function () {
   getCountryData();
 });
 
-////////////// Province Array Setup ///////////////////
+// Province Array Setup
 function saveProvinceInputLocal() {
   // if the input saved before, don't need to save again
   if (provinceArray.includes(titleCase(input))) {
@@ -94,7 +109,7 @@ $(".list-group-item").on("click", function () {
   getProvinceData();
 });
 
-////////////// City Array Setup ///////////////////
+// City Array Setup
 function saveCityInputLocal() {
   // if the input saved before, don't need to save again
   if (cityArray.includes(titleCase(input))) {
@@ -132,7 +147,7 @@ $(".list-group-item").on("click", function () {
   document.querySelector("img")?.remove();
   getCityData();
 });
-//////////////// END OF ARRAY SETUP ////////////////
+// END OF ARRAY SETUP
 
 // Remove the history & clear the local storage
 function createClearButton() {
@@ -144,11 +159,14 @@ function createClearButton() {
   $(clearButton).on("click", function () {
     $(".city-display").children(".list-group-item").remove();
     localStorage.clear();
-    // clearButton.remove();
+    // reload the browser
+    location.reload(true);
   });
 }
 createClearButton();
+////////////// END OF DATA PREPARATION /////////////
 
+////////////////// FETCH INPUT ////////////////////
 // Input & Search 1: Country
 // Click the button to submit a country input & fetch data
 $("#search-buttonC").on("click", function () {
@@ -175,67 +193,47 @@ $("#search-buttonC").on("click", function () {
 // Fetch 1: Country
 // Get all the available countries & receiving the covid-19 updates
 function getCountryData() {
-  fetch("https://api.covid19api.com/countries")
+  fetch("https://www.trackcorona.live/api/countries")
     .then(function (response) {
       if (response.ok) {
         return response.json();
       }
     })
     .then(function (responseJson) {
-      // Returns all the available countries, as well as the country slug per country requests
-      for (let i = 0; i < responseJson.length; i++) {
+      // Returns all the available province.
+      for (let i = 0; i < responseJson.data.length; i++) {
         // Returns the input country
-        if (
-          responseJson[i].Country.startsWith(input) ||
-          responseJson[i].Slug.includes(input)
-        ) {
-          function getDataByCountry() {
-            fetch(
-              "https://api.covid19api.com/total/dayone/country/" +
-                responseJson[i].Slug
-            )
-              .then(function (response) {
-                return response.json();
-              })
-              .then(function (responseJson2) {
-                let mostRecentIndex = responseJson2.length - 1;
-                let mostRecentData = responseJson2[mostRecentIndex].Date.split(
-                  "T"
-                )[0];
-                // print the most recent covid-19 updates data
-                let confirm = document.querySelector("#confirm");
-                let country = document.querySelector("#country-province");
-                country.textContent = responseJson[i].Country;
-                if (responseJson[i].Country === "United States of America") {
-                  country.textContent = "US";
-                }
-                confirm.textContent =
-                  mostRecentData +
-                  ": " +
-                  " Active: " +
-                  responseJson2[mostRecentIndex].Active +
-                  ", " +
-                  " Deaths: " +
-                  responseJson2[mostRecentIndex].Deaths +
-                  ".";
-                // create country flag
-                document.querySelector("img")?.remove();
-                let flagDiv = document.querySelector("#flag");
-                let countryFlag = document.createElement("img");
-                countryFlag.setAttribute(
-                  "src",
-                  "https://www.countryflags.io/" +
-                    responseJson[i].ISO2 +
-                    "/flat/64.png"
-                );
-                flagDiv.appendChild(countryFlag);
-              });
-          }
-          // call the data function
-          getDataByCountry();
+        if (responseJson.data[i].location.includes(titleCase(input))) {
+          modalOff();
+          let confirm = document.querySelector("#confirm");
+          let country = document.querySelector("#country-province");
+          let mostRecentData = responseJson.data[i].updated.split(" ")[0];
+          country.textContent = responseJson.data[i].location;
+          confirm.textContent =
+            mostRecentData +
+            ": " +
+            " Confirmed: " +
+            responseJson.data[i].confirmed +
+            ", " +
+            " Deaths: " +
+            responseJson.data[i].dead +
+            ".";
+          // create country flag
+          document.querySelector("img")?.remove();
+          let flagDiv = document.querySelector("#flag");
+          let countryFlag = document.createElement("img");
+          countryFlag.setAttribute(
+            "src",
+            "https://www.countryflags.io/" +
+              responseJson.data[i].country_code +
+              "/flat/64.png"
+          );
+          flagDiv.appendChild(countryFlag);
+          return;
         }
-        // if the response doesn't include the user's input country/area, display a message but not an alert
-        else {
+
+        if (!responseJson.data[i].location.includes(titleCase(input))) {
+          modalOpen();
         }
       }
     });
@@ -271,6 +269,7 @@ function getProvinceData() {
       for (let i = 0; i < responseJson.data.length; i++) {
         // Returns the input country
         if (responseJson.data[i].location.includes(titleCase(input))) {
+          modalOff();
           let confirm = document.querySelector("#confirm");
           let province = document.querySelector("#country-province");
           let mostRecentData = responseJson.data[i].updated.split(" ")[0];
@@ -298,7 +297,11 @@ function getProvinceData() {
               "/flat/64.png"
           );
           flagDiv.appendChild(countryFlag);
-        } else {
+          return;
+        }
+
+        if (!responseJson.data[i].location.includes(titleCase(input))) {
+          modalOpen();
         }
       }
     });
@@ -333,6 +336,7 @@ function getCityData() {
       for (let i = 0; i < responseJson.data.length; i++) {
         // Returns the input city
         if (responseJson.data[i].location.includes(titleCase(input))) {
+          modalOff();
           let confirm = document.querySelector("#confirm");
           let city = document.querySelector("#country-province");
           let mostRecentData = responseJson.data[i].updated.split(" ")[0];
@@ -369,15 +373,20 @@ function getCityData() {
               "/flat/64.png"
           );
           flagDiv.appendChild(countryFlag);
-        } else {
+          return;
+        }
+
+        if (!responseJson.data[i].location.includes(titleCase(input))) {
+          modalOpen();
         }
       }
     });
 }
+//////////////// END OF FETCH INPUT ////////////////
 
-//////////////////////////////// MAP AREA ////////////////////////////////
+///////////////////// MAP AREA ////////////////////
 am4core.ready(function () {
-  //////////////////////////////// KEEP TOP /////////////////////////////
+  //////////////////////////////// KEEP TOP
   // the world total data
   // console.log(covid_total_timeline);
   let lastDateWorld =
@@ -396,9 +405,9 @@ am4core.ready(function () {
   let mostRecentDataCountryAll =
     covid_world_timeline[covid_world_timeline.length - 1].list;
   console.log(mostRecentDataCountryAll);
-  //////////////////////////////// KEEP TOP /////////////////////////////
+  //////////////////////////////// KEEP TOP
 
-  //////////////////////////////// DATA AREA ////////////////////////////
+  //////////////////////////////// DATA AREA
   // make a map of country indexes for later use
   let countryIndexMap = {};
   // var list = covid_world_timeline[covid_world_timeline.length - 1].list;
@@ -448,10 +457,10 @@ am4core.ready(function () {
     max.active = max.confirmed;
   }
 
-  // END OF DATA
-  //////////////////////////////// DATA AREA /////////////////////////////
+  // END OF DATA AREA
+  //////////////////////////////// DATA AREA
 
-  //////////////////////////////// MAP SETUP /////////////////////////////
+  //////////////////////////////// MAP SETUP
   // Create map instance
   let chart = am4core.create("chartdiv", am4maps.MapChart);
 
@@ -483,8 +492,8 @@ am4core.ready(function () {
 
   // Remove Antarctica
   polygonSeries.exclude = ["AQ"];
-  //////////////////////////////// MAP SETUP /////////////////////////////
+  //////////////////////////////// END OF MAP SETUP
 });
-//////////////////////////////// END OF MAP AREA ////////////////////////////////
+//////////////////////////////// END OF MAP AREA
 
 // for everyday total number display: "https://covid-api.com/api/reports/total"

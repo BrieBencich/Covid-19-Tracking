@@ -76,3 +76,7 @@ body {
 .clear-button {
   display: inline;
 }
+
+.box {
+  margin-top: 200px;
+}
