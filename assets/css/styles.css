@@ -1,40 +1,69 @@
-body{
-    margin: 0;
-    padding: 0;
-    font-family: 'Courier New', Courier, monospace;
-    background-image:url("../image/covid19.jpg");
+* {
+  box-sizing: border-box;
 }
 
-.main-header{
-    background-color: brown;
-    width: 100%;
-    height: 150px;
-    margin-top: 0;
-    padding-top: 0;
-
+#info-wrap {
+  background-color: #bebebe;
 }
 
-.main-heading{
-    font-size: 25px;
-    color: white;
-    padding:20px 50px 40px 30px ;
+/*** test & choose a color
+}***/
+/*** h1 {
+background-color: #367b25;
+  background-color: #727272;
+  background-color: #ff8c4a;
+}***/
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-.form{
-    padding: 10px 60px 0px 20px;
-    font-size: 20px;
-    font-weight: bold;
+#chartdiv {
+  width: 100%;
+  height: 70vh;
 }
 
-.form input{
-    border: 1px solid black;
-    width: 20%;
-    font-size: 20px;
+.main-header {
+  background-color: brown;
+  width: 100%;
+  height: 150px;
+  margin-top: 0;
+  padding-top: 0;
 }
 
-.button{
-    font-size: 20px;
-    font-weight: bold;
-    background-color:black;
-    color: white;
+.main-heading {
+  font-size: 25px;
+  color: white;
+  padding: 20px 50px 40px 30px;
 }
+
+.form-control {
+  height: auto;
+  width: auto;
+}
+
+#country-province {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.right-col {
+  background-color: rgb(226, 225, 225);
+}
+
+.tile.is-parent {
+  padding: 0;
+}
+.notification {
+  border-radius: 0;
+}
+.display-flex {
+  display: flex;
+}
+
+.round-button{
+  flex-direction: row;
+}
+
+
