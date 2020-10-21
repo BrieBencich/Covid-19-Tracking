@@ -80,3 +80,33 @@ body {
 .box {
   margin-top: 200px;
 }
+
+section a {
+  text-decoration: none;
+  color: black;
+}
+
+section nav {
+  margin: 10px 0;
+}
+section nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}
+section nav ul li a {
+  padding: 10px 15px;
+  font-weight: bolder;
+  font-size: 1.55vw;
+  border: white solid 1px;
+  border-radius: 15px;
+  color: white;
+}
+section nav ul li a:hover {
+  background: white;
+  color: black;
+  border-radius: 15px;
+  text-shadow: none;
+}

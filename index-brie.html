@@ -22,7 +22,6 @@
             <h5 class="subtitle is-align-self-center">
               Search for Covid-19 Updates
             </h5>
-            <!-- nav bar -->
             <nav>
               <ul>
                 <li>
@@ -40,11 +39,9 @@
     <!-- main -->
     <div class="tile is-parent">
       <!-- left column -->
-      <aside
-        class="left-column tile is-child notification has-background-grey-dark"
-      >
+      <aside class="tile is-child notification has-background-grey-dark">
         <!-- search 1 -->
-        <div class="field has-addons has-addons-centered">
+        <div class="field has-addons">
           <div class="control" id="input-div">
             <input
               id="input"
@@ -60,7 +57,7 @@
           </div>
         </div>
         <!-- search 2 -->
-        <div class="field has-addons has-addons-centered">
+        <div class="field has-addons">
           <div class="control" id="input-div">
             <input
               id="input"
@@ -76,29 +73,27 @@
           </div>
         </div>
         <!-- search 3 -->
-        <div class="field has-addons has-addons-centered">
-          <div class="control" id="input-div">
+        <div class="field has-addons">
+          <div class="control">
             <input
               id="input"
               class="input"
               type="text"
-              placeholder="Search a city"
+              placeholder="Search US city only"
             />
           </div>
-          <div class="control" id="search-button-city">
+          <div class="control">
             <a class="button is-info">
               <i class="fa fa-search"></i>
             </a>
           </div>
         </div>
         <!-- history list-->
-        <div class="city-display left-down-col list-group mt-5" id="list-group">
-          <!-- <button class="button is-fullwidth list-group-item" id="list-group-item"></button> -->
-        </div>
-        <div class="clear-button-div"></div>
+        <ul class="list-group history"></ul>
       </aside>
 
       <!-- right column -->
+      
       <div class="tile is-child notification is-vertical is-9">
         <div
           class="display-flex is-flex-wrap-wrap is-justify-content-flex-start pl-3 pb-2"
@@ -107,70 +102,50 @@
           <h2 id="country-province" class="ml-5 mt-3"></h2>
           <p id="confirm" class="ml-5 mt-5"></p>
         </div>
+        <section id="Covid-19-Maps" class="hover">
         <div id="chartdiv" class="row map"></div>
       </div>
     </div>
+  </section>
+  
+  
 
-    <!-- modal -->
-    <div class="modal" id="modal-div">
-      <div class="modal-background"></div>
-      <div class="modal-content">
-        <!-- Display Message -->
-        <div class="box">
-          <article class="media">
-            <div class="media-left">
-              <figure class="image is-64x64">
-                <a class="button is-info">
-                  <i class="fas fa-exclamation-triangle"></i>
-                </a>
-              </figure>
-            </div>
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  <strong class="is-size-5">Message</strong>
-                  <br />
-                  Search Not Found, Please Try Again!
-                </p>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-      <button
-        class="modal-close is-large"
-        id="modal-close"
-        aria-label="close"
-      ></button>
-    </div>
+     <!-- Table for Covid-19-->
+     <section id="Covid-19-Tests" class="hover">
+     <div class="display-flex is-flex-wrap-wrap is-justify-content-flex-start pl-3 pb-2" id="#Covid-19-Tests">
+     <iframe src="https://ourworldindata.org/grapher/full-list-cumulative-total-tests-per-thousand" style="width: 100%; height: 300px; border: 0px none;">
+     </iframe>
+     </div>
+     </section>
 
-    <!-- Table for Covid-19-->
-    <section id="Covid-19-Tests" class="hover">
-      <div
-        class="display-flex is-flex-wrap-wrap is-justify-content-flex-start pl-3 pb-2"
-        id="#Covid-19-Tests"
-      >
-        <iframe
-          src="https://ourworldindata.org/grapher/full-list-cumulative-total-tests-per-thousand"
-          style="width: 100%; height: 300px; border: 0px none"
-        >
-        </iframe>
-      </div>
-    </section>
-
-    <!-- footer-->
+     <!-- footer-->
     <footer class="footer has-background-danger">
       <div class="content has-text-centered">
         <p>
           <strong>Covid-19 2020. Stay Safe, Wear a Mask.</strong>
-          Data from Testing was Retrived by Open Source,
-          <a
-            href="https://ourworldindata.org/grapher/full-list-cumulative-total-tests-per-thousand?time=2020-02-20..latest"
-            >https://ourworldindata.org/</a
-          >
+          Data from Testing was Retrived by Open Source, <a href="https://ourworldindata.org/grapher/full-list-cumulative-total-tests-per-thousand?time=2020-02-20..latest">https://ourworldindata.org/</a>
         </p>
       </div>
     </footer>
+    
+
+    <!-- the previous search area -->
+    <!-- 
+    <div id="info-wrap" class="d-flex flex-wrap justify-content-between">
+      <div>
+        <input type="text" id="input" placeholder="Type a country/regin" />
+        <button id="search-button">search</button>
+      </div>
+      <div>
+        <input type="text" id="input" placeholder="Type a province" />
+        <button id="search-button">search</button>
+      </div>
+      <div>
+        <input type="text" id="input" placeholder="Type a city" />
+        <button id="search-button">search</button>
+        <p>For US City Only</p>
+      </div>
+    </div> -->
 
     <!-- scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
