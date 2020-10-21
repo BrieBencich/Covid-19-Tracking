@@ -101,12 +101,12 @@ section nav ul li a {
   font-weight: bolder;
   font-size: 1.55vw;
   border: white solid 1px;
-  border-radius: 15px;
+  border-radius: 35px;
   color: white;
 }
 section nav ul li a:hover {
   background: white;
   color: black;
-  border-radius: 15px;
+  border-radius: 35px;
   text-shadow: none;
 }

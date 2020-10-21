@@ -164,9 +164,9 @@ function createClearButton() {
   });
 }
 createClearButton();
-////////////// END OF DATA PREPARATION /////////////
+//////////////// END OF DATA PREPARATION //////////////
 
-////////////////// FETCH INPUT ////////////////////
+///////////////////// FETCH INPUT /////////////////////
 // Input & Search 1: Country
 // Click the button to submit a country input & fetch data
 $("#search-buttonC").on("click", function () {
@@ -384,53 +384,23 @@ function getCityData() {
 }
 //////////////// END OF FETCH INPUT ////////////////
 
-///////////////////// MAP AREA ////////////////////
+///////////////////// MAP AREA /////////////////////
 am4core.ready(function () {
-  //////////////////////////////// KEEP TOP
-  // the world total data
-  // console.log(covid_total_timeline);
-  let lastDateWorld =
-    covid_total_timeline[covid_total_timeline.length - 1].date;
-  let totalConfirmed =
-    covid_total_timeline[covid_total_timeline.length - 1].confirmed;
-  // // print world last updated date and total conformed
-  // console.log(lastDateWorld);
-  // console.log(totalConfirmed);
-
-  // the world country data //
-  // console.log(covid_world_timeline);
-  let mostRecentDate =
-    covid_world_timeline[covid_world_timeline.length - 1].date;
-  console.log("The last update date for all country: " + mostRecentDate);
-  let mostRecentDataCountryAll =
-    covid_world_timeline[covid_world_timeline.length - 1].list;
-  console.log(mostRecentDataCountryAll);
-  //////////////////////////////// KEEP TOP
-
-  //////////////////////////////// DATA AREA
+  // DATA AREA
   // make a map of country indexes for later use
   let countryIndexMap = {};
-  // var list = covid_world_timeline[covid_world_timeline.length - 1].list;
-  for (let i = 0; i < mostRecentDataCountryAll.length; i++) {
-    let country = mostRecentDataCountryAll[i];
+  let list = covid_world_timeline[covid_world_timeline.length - 1].list;
+  for (let i = 0; i < list.length; i++) {
+    let country = list[i];
     countryIndexMap[country.id] = i;
   }
-
-  // // calculated active cases in world data (active = confirmed - recovered)
-  // for (let i = 0; i < covid_total_timeline.length; i++) {
-  //   let di = covid_total_timeline[i];
-  //   di.active = di.confirmed - di.recovered;
-  // }
-
   // function that returns current slide
   // if index is not set, get last slide
   function getSlideData(index) {
     if (index == undefined) {
       index = covid_world_timeline.length - 1;
     }
-
     let data = covid_world_timeline[index];
-
     return data;
   }
 
@@ -439,7 +409,6 @@ am4core.ready(function () {
 
   // as we will be modifying raw data, make a copy
   let mapData = JSON.parse(JSON.stringify(slideData.list));
-
   let max = { confirmed: 0, recovered: 0, deaths: 0 };
 
   // the last day will have most
@@ -457,10 +426,7 @@ am4core.ready(function () {
     max.active = max.confirmed;
   }
 
-  // END OF DATA AREA
-  //////////////////////////////// DATA AREA
-
-  //////////////////////////////// MAP SETUP
+  // MAP SETUP
   // Create map instance
   let chart = am4core.create("chartdiv", am4maps.MapChart);
 
@@ -482,8 +448,7 @@ am4core.ready(function () {
   // Configure series
   let polygonTemplate = polygonSeries.mapPolygons.template;
   polygonTemplate.tooltipText =
-    "[bold]{name}:[/]" + "\n" + "[font-size:12px]Total Confirmed: {confirmed}";
-
+    "[bold]{name}:[/]" + "\n" + "[font-size:12px]Current Cases: {confirmed}";
   polygonTemplate.fill = am4core.color("#727272");
 
   // Create hover state and set alternative fill color
@@ -492,8 +457,5 @@ am4core.ready(function () {
 
   // Remove Antarctica
   polygonSeries.exclude = ["AQ"];
-  //////////////////////////////// END OF MAP SETUP
 });
-//////////////////////////////// END OF MAP AREA
-
-// for everyday total number display: "https://covid-api.com/api/reports/total"
+////////////////// END OF MAP AREA //////////////////
