@@ -2,6 +2,9 @@
 
 // initial the input variable
 let input = "";
+let inputList = "";
+let inputBtn = "";
+let deleteDiv = "";
 
 // get the input search stored in the array
 let countryArray = JSON.parse(localStorage.getItem("countryArray")) || [];
@@ -33,6 +36,29 @@ function titleCase(string) {
     .join(" ");
 }
 
+// create history buttons
+function createHistory() {
+  // let inputList = $("#list-group-country");
+  let buttonSet = document.createElement("div");
+  buttonSet.classList = "field has-addons button-set";
+  let buttonDiv = document.createElement("div");
+  buttonDiv.classList = "control is-expanded";
+  inputBtn = document.createElement("button");
+  inputBtn.classList = "button is-fullwidth list-group-item";
+  deleteDiv = document.createElement("div");
+  deleteDiv.classList = "control delete-div";
+  let deleteBtn = document.createElement("button");
+  deleteBtn.classList = "button is-danger";
+  let deleteIcon = document.createElement("i");
+  deleteIcon.classList = "fas fa-trash-alt";
+  buttonDiv.append(inputBtn);
+  buttonSet.append(buttonDiv);
+  deleteBtn.append(deleteIcon);
+  deleteDiv.append(deleteBtn);
+  buttonSet.append(deleteDiv);
+  inputList.append(buttonSet);
+}
+
 // Country Array Setup
 function saveCountryInputLocal() {
   // if the input saved before, don't need to save again
@@ -42,32 +68,55 @@ function saveCountryInputLocal() {
   // local storage - save inputs to the array & create history on the left panel
   countryArray.push(titleCase(input));
   localStorage.setItem("countryArray", JSON.stringify(countryArray));
-  let inputList = $("#list-group");
-  let inputBtn = document.createElement("button");
-  inputBtn.classList = "button is-fullwidth list-group-item";
+  inputList = $("#list-group-country");
+  createHistory();
   inputBtn.textContent = titleCase(input);
-  inputList.append(inputBtn);
   // enable the button right after the creation
   inputBtn.onclick = function () {
     input = inputBtn.textContent;
+    console.log(input);
     // invoke the search function
     // document.querySelector("img")?.remove();
     getCountryData();
   };
+  deleteDiv.onclick = function () {
+    let toBeDelete = $(this).siblings().children(".list-group-item").text();
+    countryArray = JSON.parse(localStorage.getItem("countryArray"));
+    // let index = countryArray.indexOf(toBeDelete);
+    countryArray.splice(countryArray.indexOf(toBeDelete), 1);
+    localStorage.setItem("countryArray", JSON.stringify(countryArray));
+    if ((countryArray.length = 1)) {
+      countryArray = [];
+    }
+
+    $(this).parents(".button-set").remove();
+  };
 }
 // initial print the local storage
 for (let i = 0; i < countryArray.length; i++) {
-  let inputList = $("#list-group");
-  let inputBtn = document.createElement("button");
-  inputBtn.classList = "button is-fullwidth list-group-item";
+  inputList = $("#list-group-country");
+  createHistory();
   inputBtn.textContent = countryArray[i];
-  inputList.append(inputBtn);
+
+  deleteDiv.onclick = function () {
+    let toBeDelete = $(this).siblings().children(".list-group-item").text();
+    countryArray = JSON.parse(localStorage.getItem("countryArray"));
+    // let index = countryArray.indexOf(toBeDelete);
+    countryArray.splice(countryArray.indexOf(toBeDelete), 1);
+    localStorage.setItem("countryArray", JSON.stringify(countryArray));
+    if ((countryArray.length = 1)) {
+      countryArray = [];
+    }
+
+    $(this).parents(".button-set").remove();
+  };
 }
 // stored search, click & use it to fetch
-$(".list-group-item").on("click", function () {
+$("#list-group-country").on("click", ".list-group-item", function () {
   input = $(this).text();
+  console.log(input);
   // invoke the search function
-  // document.querySelector("img")?.remove();
+  document.querySelector("img")?.remove();
   getCountryData();
 });
 
@@ -80,11 +129,9 @@ function saveProvinceInputLocal() {
   // local storage - save inputs to the array & create history on the left panel
   provinceArray.push(titleCase(input));
   localStorage.setItem("provinceArray", JSON.stringify(provinceArray));
-  let inputList = $("#list-group");
-  let inputBtn = document.createElement("button");
-  inputBtn.classList = "button is-fullwidth list-group-item";
+  inputList = $("#list-group-province");
+  createHistory();
   inputBtn.textContent = titleCase(input);
-  inputList.append(inputBtn);
   // enable the button right after the creation
   inputBtn.onclick = function () {
     input = inputBtn.textContent;
@@ -92,17 +139,38 @@ function saveProvinceInputLocal() {
     document.querySelector("img")?.remove();
     getProvinceData();
   };
+  deleteDiv.onclick = function () {
+    let toBeDelete = $(this).siblings().children(".list-group-item").text();
+    provinceArray = JSON.parse(localStorage.getItem("provinceArray"));
+    // let index = countryArray.indexOf(toBeDelete);
+    provinceArray.splice(provinceArray.indexOf(toBeDelete), 1);
+    localStorage.setItem("provinceArray", JSON.stringify(provinceArray));
+    if ((provinceArray.length = 1)) {
+      provinceArray = [];
+    }
+    $(this).parents(".button-set").remove();
+  };
 }
 // initial print the local storage
 for (let i = 0; i < provinceArray.length; i++) {
-  let inputList = $("#list-group");
-  let inputBtn = document.createElement("button");
-  inputBtn.classList = "button is-fullwidth list-group-item";
+  inputList = $("#list-group-province");
+  createHistory();
   inputBtn.textContent = provinceArray[i];
-  inputList.append(inputBtn);
+
+  deleteDiv.onclick = function () {
+    let toBeDelete = $(this).siblings().children(".list-group-item").text();
+    provinceArray = JSON.parse(localStorage.getItem("provinceArray"));
+    // let index = countryArray.indexOf(toBeDelete);
+    provinceArray.splice(provinceArray.indexOf(toBeDelete), 1);
+    localStorage.setItem("provinceArray", JSON.stringify(provinceArray));
+    if ((provinceArray.length = 1)) {
+      provinceArray = [];
+    }
+    $(this).parents(".button-set").remove();
+  };
 }
 // stored search, click & use it to fetch
-$(".list-group-item").on("click", function () {
+$("#list-group-province").on("click", ".list-group-item", function () {
   input = $(this).text();
   // invoke the search function
   document.querySelector("img")?.remove();
@@ -118,11 +186,9 @@ function saveCityInputLocal() {
   // local storage - save inputs to the array & create history on the left panel
   cityArray.push(titleCase(input));
   localStorage.setItem("cityArray", JSON.stringify(cityArray));
-  let inputList = $("#list-group");
-  let inputBtn = document.createElement("button");
-  inputBtn.classList = "button is-fullwidth list-group-item";
+  inputList = $("#list-group-city");
+  createHistory();
   inputBtn.textContent = titleCase(input);
-  inputList.append(inputBtn);
   // enable the button right after the creation
   inputBtn.onclick = function () {
     input = inputBtn.textContent;
@@ -130,18 +196,41 @@ function saveCityInputLocal() {
     document.querySelector("img")?.remove();
     getCityData();
   };
+  deleteDiv.onclick = function () {
+    let toBeDelete = $(this).siblings().children(".list-group-item").text();
+    cityArray = JSON.parse(localStorage.getItem("cityArray"));
+    // let index = countryArray.indexOf(toBeDelete);
+    cityArray.splice(cityArray.indexOf(toBeDelete), 1);
+    localStorage.setItem("cityArray", JSON.stringify(cityArray));
+    if ((cityArray.length = 1)) {
+      cityArray = [];
+    }
+
+    $(this).parents(".button-set").remove();
+  };
 }
 
 // initial print the local storage
 for (let i = 0; i < cityArray.length; i++) {
-  let inputList = $("#list-group");
-  let inputBtn = document.createElement("button");
-  inputBtn.classList = "button is-fullwidth list-group-item";
+  inputList = $("#list-group-city");
+  createHistory();
   inputBtn.textContent = cityArray[i];
-  inputList.append(inputBtn);
+
+  deleteDiv.onclick = function () {
+    let toBeDelete = $(this).siblings().children(".list-group-item").text();
+    cityArray = JSON.parse(localStorage.getItem("cityArray"));
+    // let index = countryArray.indexOf(toBeDelete);
+    cityArray.splice(cityArray.indexOf(toBeDelete), 1);
+    localStorage.setItem("cityArray", JSON.stringify(cityArray));
+    if ((cityArray.length = 1)) {
+      cityArray = [];
+    }
+
+    $(this).parents(".button-set").remove();
+  };
 }
 // stored search, click & use it to fetch
-$(".list-group-item").on("click", function () {
+$("#list-group-city").on("click", ".list-group-item", function () {
   input = $(this).text();
   // invoke the search function
   document.querySelector("img")?.remove();
@@ -149,21 +238,22 @@ $(".list-group-item").on("click", function () {
 });
 // END OF ARRAY SETUP
 
-// Remove the history & clear the local storage
+// One click to remove the history & clear the local storage
 function createClearButton() {
   let = clearButtonDiv = $(".clear-button-div");
   let = clearButton = document.createElement("button");
   clearButton.classList = "button clear-button is-rounded is-danger mt-3";
-  clearButton.textContent = "Clear History";
+  clearButton.textContent = "Clear All History";
   clearButtonDiv.append(clearButton);
   $(clearButton).on("click", function () {
-    $(".city-display").children(".list-group-item").remove();
+    $(".list-group-all").children("#button-set").remove();
     localStorage.clear();
     // reload the browser
     location.reload(true);
   });
 }
 createClearButton();
+
 //////////////// END OF DATA PREPARATION //////////////
 
 ///////////////////// FETCH INPUT /////////////////////
@@ -313,9 +403,7 @@ $("#search-button-city").on("click", function () {
   document.querySelector("img")?.remove();
   console.log("city search button is clicked");
   input = $(this).siblings("#input-div").children("#input").val();
-  if (input === "ontario" || input === "Ontario" || input === "ONTARIO") {
-    return;
-  }
+
   // call the fetch function
   getCityData();
   saveCityInputLocal();
@@ -333,6 +421,7 @@ function getCityData() {
       }
     })
     .then(function (responseJson) {
+      // console.log(responseJson);
       for (let i = 0; i < responseJson.data.length; i++) {
         // Returns the input city
         if (responseJson.data[i].location.includes(titleCase(input))) {
@@ -340,13 +429,13 @@ function getCityData() {
           let confirm = document.querySelector("#confirm");
           let city = document.querySelector("#country-province");
           let mostRecentData = responseJson.data[i].updated.split(" ")[0];
-          if (responseJson.data[i].location === "Ontario County, New York") {
-            return;
-          }
+
           if (responseJson.data[i].location === "Come to Beijing from abroad") {
             responseJson.data[i].location = "Beijing";
           }
-          if (responseJson.data[i].location === "Foreign to Shanghai") {
+          if (
+            responseJson.data[i].location === "Come to Shanghai from abroad."
+          ) {
             responseJson.data[i].location = "Shanghai";
           }
           city.textContent =

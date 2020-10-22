@@ -6,14 +6,6 @@
   background-color: #bebebe;
 }
 
-/*** test & choose a color
-}***/
-/*** h1 {
-background-color: #367b25;
-  background-color: #727272;
-  background-color: #ff8c4a;
-}***/
-
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -55,9 +47,11 @@ body {
 .tile.is-parent {
   padding: 0;
 }
+
 .notification {
   border-radius: 0;
 }
+
 .display-flex {
   display: flex;
 }
@@ -89,6 +83,7 @@ section a {
 section nav {
   margin: 10px 0;
 }
+
 section nav ul {
   display: flex;
   flex-wrap: wrap;
@@ -96,6 +91,7 @@ section nav ul {
   align-items: center;
   list-style: none;
 }
+
 section nav ul li a {
   padding: 10px 15px;
   font-weight: bolder;
@@ -104,6 +100,7 @@ section nav ul li a {
   border-radius: 35px;
   color: white;
 }
+
 section nav ul li a:hover {
   background: white;
   color: black;

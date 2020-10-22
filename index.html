@@ -91,10 +91,54 @@
             </a>
           </div>
         </div>
-        <!-- history list-->
-        <div class="city-display left-down-col list-group mt-5" id="list-group">
-          <!-- <button class="button is-fullwidth list-group-item" id="list-group-item"></button> -->
+        <!-- final search area -->
+        <div>
+          <input class="input" type="text" placeholder="Text input" />
+          <div class="field has-addons">
+            <div class="control is-expanded">
+              <div class="select is-fullwidth">
+                <select name="Select A Category" placeholder="Text input">
+                  <option>Select</option>
+                  <option>Country</option>
+                  <option>Province</option>
+                  <option>County/City</option>
+                </select>
+              </div>
+            </div>
+            <div class="control">
+              <button type="submit" class="button is-danger">Search</button>
+            </div>
+          </div>
         </div>
+        <!-- history list-->
+        <div class="left-down-col list-group-all mt-5" id="list-group-country">
+          <!-- <button class="button is-fullwidth list-group-item" id="list-group-item"></button> -->
+          <!-- <div class="field has-addons" id="button-set">
+            <div class="control is-expanded" id="button-div">
+              <button
+                class="button is-fullwidth list-group-item"
+                id="list-group-item"
+              >
+                Testing
+              </button>
+            </div>
+            <div class="control" id="delete-div">
+              <button class="button is-danger" id="delete-btn">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </div>  -->
+        </div>
+
+        <div
+          class="left-down-col list-group-all mt-5"
+          id="list-group-province"
+        ></div>
+        <div
+          class="left-down-col list-group-all mt-5"
+          id="list-group-city"
+        ></div>
+
         <div class="clear-button-div"></div>
       </aside>
 
