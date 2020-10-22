@@ -13,16 +13,26 @@ let cityArray = JSON.parse(localStorage.getItem("cityArray")) || [];
 
 // Modal Setup
 let modal = document.querySelector("#modal-div");
+let modalNoInput = document.querySelector("#modal-div-no-input");
 // modal open function
 function modalOpen() {
   modal.style.display = "block";
+}
+function modalNoInputOn() {
+  modalNoInput.style.display = "block";
 }
 // modal off function
 function modalOff() {
   modal.style.display = "none";
 }
+function modalNoInputOff() {
+  modalNoInput.style.display = "none";
+}
 $("#modal-close").on("click", function () {
   modalOff();
+});
+$("#modal-2-close").on("click", function () {
+  modalNoInputOff();
 });
 
 // title case function, to title case the input
@@ -263,6 +273,7 @@ $("#search-buttonC").on("click", function () {
   document.querySelector("img")?.remove();
   console.log("country search button is clicked");
   input = $(this).siblings("#input-div").children("#input").val();
+
   if (
     input === "US" ||
     input === "us" ||
@@ -273,6 +284,11 @@ $("#search-buttonC").on("click", function () {
   ) {
     input = "United States";
   }
+
+  if (input === null || input === "") {
+    modalNoInputOn();
+  }
+
   // call the fetch function
   getCountryData();
   saveCountryInputLocal();
@@ -335,7 +351,13 @@ $("#search-buttonP").on("click", function () {
   document.querySelector("img")?.remove();
   console.log("province search button is clicked");
   input = $(this).siblings("#input-div").children("#input").val();
+
+  if (input === null || input === "") {
+    modalNoInputOn();
+  }
+
   if (input === "china" || input === "China" || input === "CHINA") {
+    modalOpen();
     return;
   }
   // call the fetch function
@@ -403,6 +425,10 @@ $("#search-button-city").on("click", function () {
   document.querySelector("img")?.remove();
   console.log("city search button is clicked");
   input = $(this).siblings("#input-div").children("#input").val();
+
+  if (input === null || input === "") {
+    modalNoInputOn();
+  }
 
   // call the fetch function
   getCityData();

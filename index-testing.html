@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Covid-19 Tracking App</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+  </head>
+  <body>
+    <!-- final search area -->
+    <div id="search-section">
+      <input
+        class="input mb-2"
+        type="text"
+        placeholder="Your Search Input"
+        id="input"
+      />
+      <div class="field has-addons" id="option-search">
+        <div class="control is-expanded" id="option-div">
+          <div class="select is-fullwidth">
+            <select name="category" id="category">
+              <option value="0">Category</option>
+              <option value="search-buttonC">Country</option>
+              <option value="search-buttonP">Province</option>
+              <option value="search-button-city">County/City</option>
+            </select>
+          </div>
+        </div>
+        <div class="control" id="search-div">
+          <button type="submit" class="button is-info" id="search-btn">
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"
+    ></script>
+    <script type="text/javascript">
+      var optionCategory = document.getElementById("category");
+
+      $("#category").change(function () {
+        var optionValue = this.value;
+        console.log(optionValue);
+        // var firstDropVal = $('#pick').val();
+      });
+
+      $("#search-div").on("click", function () {
+        console.log("search button clicked");
+        let input = $(this).parent().siblings("#input").val();
+        console.log(input);
+      });
+    </script>
+  </body>
+</html>

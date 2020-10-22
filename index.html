@@ -92,21 +92,28 @@
           </div>
         </div>
         <!-- final search area -->
-        <div>
-          <input class="input" type="text" placeholder="Text input" />
-          <div class="field has-addons">
-            <div class="control is-expanded">
+        <div id="search-section">
+          <input
+            class="input mb-2"
+            type="text"
+            placeholder="Your Search Input"
+            id="input"
+          />
+          <div class="field has-addons" id="option-search">
+            <div class="control is-expanded" id="option-div">
               <div class="select is-fullwidth">
-                <select name="Select A Category" placeholder="Text input">
-                  <option>Select</option>
-                  <option>Country</option>
-                  <option>Province</option>
-                  <option>County/City</option>
+                <select name="Category">
+                  <option>Category</option>
+                  <option id="search-buttonC">Country</option>
+                  <option id="search-buttonP">Province</option>
+                  <option id="search-button-city">County/City</option>
                 </select>
               </div>
             </div>
             <div class="control">
-              <button type="submit" class="button is-danger">Search</button>
+              <button type="submit" class="button is-info" id="search-div">
+                Search
+              </button>
             </div>
           </div>
         </div>
@@ -155,7 +162,7 @@
       </div>
     </div>
 
-    <!-- modal -->
+    <!-- modal for search not found-->
     <div class="modal" id="modal-div">
       <div class="modal-background"></div>
       <div class="modal-content">
@@ -184,6 +191,39 @@
       <button
         class="modal-close is-large"
         id="modal-close"
+        aria-label="close"
+      ></button>
+    </div>
+
+    <!-- modal for no input -->
+    <div class="modal" id="modal-div-no-input">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <!-- Display Message -->
+        <div class="box">
+          <article class="media">
+            <div class="media-left">
+              <figure class="image is-64x64">
+                <a class="button is-danger">
+                  <i class="fas fa-search"></i>
+                </a>
+              </figure>
+            </div>
+            <div class="media-content">
+              <div class="content">
+                <p>
+                  <strong class="is-size-5">Message</strong>
+                  <br />
+                  You Need To Type Something!
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <button
+        class="modal-close is-large"
+        id="modal-2-close"
         aria-label="close"
       ></button>
     </div>
