@@ -19,13 +19,14 @@
             <h1 class="title is-2 is-align-self-center">
               Covid-19 Tracking App
             </h1>
-            <h5 class="subtitle is-align-self-center is-black">
+            <h5 class="subtitle is-align-self-center">
               Search for Covid-19 Updates
             </h5>
-            <nav class="level">
+            <!-- nav bar -->
+            <nav>
               <ul>
                 <li>
-                  <a href="#Covid-19-Map">Covid 19 Map</a>
+                  <a href="#Covid-19-Map">Covid-19 Map</a>
                 </li>
                 <li>
                   <a href="#Covid-19-Tests">Covid-19 Tests</a>
@@ -101,16 +102,16 @@
           <div class="field has-addons" id="option-search">
             <div class="control is-expanded" id="option-div">
               <div class="select is-fullwidth">
-                <select name="Category">
-                  <option>Category</option>
-                  <option id="search-buttonC">Country</option>
-                  <option id="search-buttonP">Province</option>
-                  <option id="search-button-city">County/City</option>
+                <select name="category" id="category">
+                  <option value="">Category</option>
+                  <option value="country">Country</option>
+                  <option value="province">Province</option>
+                  <option value="city">County/City</option>
                 </select>
               </div>
             </div>
-            <div class="control">
-              <button type="submit" class="button is-info" id="search-div">
+            <div class="control" id="search-div">
+              <button type="submit" class="button is-info" id="search-btn">
                 Search
               </button>
             </div>
@@ -267,6 +268,6 @@
     <script src="https://covid.amCharts.com/data/js/world_timeline.js"></script>
     <script src="https://covid.amCharts.com/data/js/total_timeline.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
-    <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/dropdown-script.js"></script>
   </body>
 </html>

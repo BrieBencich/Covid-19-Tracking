@@ -86,7 +86,6 @@ function saveCountryInputLocal() {
     input = inputBtn.textContent;
     console.log(input);
     // invoke the search function
-    // document.querySelector("img")?.remove();
     getCountryData();
   };
   deleteDiv.onclick = function () {
@@ -98,7 +97,6 @@ function saveCountryInputLocal() {
     if ((countryArray.length = 1)) {
       countryArray = [];
     }
-
     $(this).parents(".button-set").remove();
   };
 }
@@ -107,7 +105,6 @@ for (let i = 0; i < countryArray.length; i++) {
   inputList = $("#list-group-country");
   createHistory();
   inputBtn.textContent = countryArray[i];
-
   deleteDiv.onclick = function () {
     let toBeDelete = $(this).siblings().children(".list-group-item").text();
     countryArray = JSON.parse(localStorage.getItem("countryArray"));
@@ -117,7 +114,6 @@ for (let i = 0; i < countryArray.length; i++) {
     if ((countryArray.length = 1)) {
       countryArray = [];
     }
-
     $(this).parents(".button-set").remove();
   };
 }
@@ -129,7 +125,6 @@ $("#list-group-country").on("click", ".list-group-item", function () {
   document.querySelector("img")?.remove();
   getCountryData();
 });
-
 // Province Array Setup
 function saveProvinceInputLocal() {
   // if the input saved before, don't need to save again
@@ -166,7 +161,6 @@ for (let i = 0; i < provinceArray.length; i++) {
   inputList = $("#list-group-province");
   createHistory();
   inputBtn.textContent = provinceArray[i];
-
   deleteDiv.onclick = function () {
     let toBeDelete = $(this).siblings().children(".list-group-item").text();
     provinceArray = JSON.parse(localStorage.getItem("provinceArray"));
@@ -186,7 +180,6 @@ $("#list-group-province").on("click", ".list-group-item", function () {
   document.querySelector("img")?.remove();
   getProvinceData();
 });
-
 // City Array Setup
 function saveCityInputLocal() {
   // if the input saved before, don't need to save again
@@ -215,17 +208,14 @@ function saveCityInputLocal() {
     if ((cityArray.length = 1)) {
       cityArray = [];
     }
-
     $(this).parents(".button-set").remove();
   };
 }
-
 // initial print the local storage
 for (let i = 0; i < cityArray.length; i++) {
   inputList = $("#list-group-city");
   createHistory();
   inputBtn.textContent = cityArray[i];
-
   deleteDiv.onclick = function () {
     let toBeDelete = $(this).siblings().children(".list-group-item").text();
     cityArray = JSON.parse(localStorage.getItem("cityArray"));
@@ -235,7 +225,6 @@ for (let i = 0; i < cityArray.length; i++) {
     if ((cityArray.length = 1)) {
       cityArray = [];
     }
-
     $(this).parents(".button-set").remove();
   };
 }
@@ -246,8 +235,6 @@ $("#list-group-city").on("click", ".list-group-item", function () {
   document.querySelector("img")?.remove();
   getCityData();
 });
-// END OF ARRAY SETUP
-
 // One click to remove the history & clear the local storage
 function createClearButton() {
   let = clearButtonDiv = $(".clear-button-div");
@@ -263,17 +250,35 @@ function createClearButton() {
   });
 }
 createClearButton();
-
 //////////////// END OF DATA PREPARATION //////////////
 
 ///////////////////// FETCH INPUT /////////////////////
+
+///////////////////// TESTING /////////////////////////////
+$("#search-div").on("click", function () {
+  console.log("search button clicked");
+  let input = $(this).parent().siblings("#input").val();
+  // input = titleCase(input);
+  console.log("search input is " + input);
+  let optionValue = $(this).closest("#option-search").find("#category").val();
+  console.log("the category is " + optionValue);
+
+  if ((optionValue = "country")) {
+    console.log("yes");
+    getCountryData();
+  }
+
+  // clear the input space after each search
+  $(this).parent().siblings("#input").val("");
+});
+///////////////////// TESTING /////////////////////////////
+
 // Input & Search 1: Country
 // Click the button to submit a country input & fetch data
 $("#search-buttonC").on("click", function () {
   document.querySelector("img")?.remove();
   console.log("country search button is clicked");
   input = $(this).siblings("#input-div").children("#input").val();
-
   if (
     input === "US" ||
     input === "us" ||
@@ -284,11 +289,9 @@ $("#search-buttonC").on("click", function () {
   ) {
     input = "United States";
   }
-
   if (input === null || input === "") {
     modalNoInputOn();
   }
-
   // call the fetch function
   getCountryData();
   saveCountryInputLocal();
@@ -351,11 +354,9 @@ $("#search-buttonP").on("click", function () {
   document.querySelector("img")?.remove();
   console.log("province search button is clicked");
   input = $(this).siblings("#input-div").children("#input").val();
-
   if (input === null || input === "") {
     modalNoInputOn();
   }
-
   if (input === "china" || input === "China" || input === "CHINA") {
     modalOpen();
     return;
@@ -425,11 +426,9 @@ $("#search-button-city").on("click", function () {
   document.querySelector("img")?.remove();
   console.log("city search button is clicked");
   input = $(this).siblings("#input-div").children("#input").val();
-
   if (input === null || input === "") {
     modalNoInputOn();
   }
-
   // call the fetch function
   getCityData();
   saveCityInputLocal();
