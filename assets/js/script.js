@@ -282,7 +282,6 @@ $("#search-buttonC").on("click", function () {
     input === "united states" ||
     input === "america"
   ) {
-<<<<<<< HEAD
     input = "United States";
   }
 
@@ -293,29 +292,14 @@ $("#search-buttonC").on("click", function () {
   // call the fetch function
   getCountryData();
   saveCountryInputLocal();
-=======
-    input = "United States of America";
-  }
-
-  console.log(input);
-  // call the fetch function
-  getCountryData();
->>>>>>> 85f5e4add2c23f7bb18b6c1555b034f80fa64da1
   // clear the input space after each search
   $(this).siblings("#input-div").children("#input").val("");
 });
 
-<<<<<<< HEAD
 // Fetch 1: Country
 // Get all the available countries & receiving the covid-19 updates
 function getCountryData() {
   fetch("https://www.trackcorona.live/api/countries")
-=======
-// Fetch 1:
-// Get all the available countries & receiving the covid-19 updates
-function getCountryData() {
-  fetch("https://api.covid19api.com/countries")
->>>>>>> 85f5e4add2c23f7bb18b6c1555b034f80fa64da1
     .then(function (response) {
       if (response.ok) {
         return response.json();
