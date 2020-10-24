@@ -1,5 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Covid-19 Tracking App</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+  </head>
+  <body>
+    <!-- header -->
+    <section class="hero is-danger">
+      <div class="container p-3">
+        <div class="columns is-centered is-vcentered is-mobile">
+          <div class="column is-narrow has-text-centered">
+            <h1 class="title is-2 is-align-self-center">
+              Covid-19 Tracking App
+            </h1>
+            <h5 class="subtitle is-align-self-center">
+              Search for Covid-19 Updates
+            </h5>
+            <!-- nav bar -->
+            <nav>
+              <ul>
+                <li>
+                  <a href="#Covid-19-Map">Covid-19 Map</a>
+                </li>
+                <li>
+                  <a href="#Covid-19-Tests">Covid-19 Tests</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- main -->
+    <div class="tile is-parent">
+      <!-- left column -->
+      <aside
+        class="left-column tile is-child notification has-background-grey-dark"
+      >
+        <!-- final search area -->
+        <div id="search-section">
+          <input
+            class="input mb-2"
+            type="text"
+            placeholder="Your Search Input"
+            id="input"
+          />
+          <div class="field has-addons" id="option-search">
+            <div class="control is-expanded" id="option-div">
+              <div class="select is-fullwidth">
+                <select name="category" id="category">
+                  <option value="" selected>Category</option>
+                  <option value="country">Country</option>
+                  <option value="province">Province</option>
+                  <option value="city">County/City</option>
+                </select>
+              </div>
+            </div>
+            <div class="control" id="search-div">
+              <button type="submit" class="button is-info" id="search-btn">
+                Search
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- history list-->
+        <div
+          class="left-down-col list-group-all mt-5"
+          id="list-group-country"
+        ></div>
+
+        <div
+          class="left-down-col list-group-all mt-5"
+          id="list-group-province"
+        ></div>
+        <div
+          class="left-down-col list-group-all mt-5"
+          id="list-group-city"
+        ></div>
+
+        <div class="clear-button-div"></div>
+      </aside>
+
+      <!-- right column -->
+      <div class="tile is-child notification is-vertical is-9">
+        <div
+          class="display-flex is-flex-wrap-wrap is-justify-content-flex-start pl-3 pb-2"
+        >
+          <div id="flag"></div>
+          <h2 id="country-province" class="ml-5 mt-3"></h2>
+          <p id="confirm" class="ml-5 mt-5"></p>
+        </div>
+        <div id="chartdiv" class="row map"></div>
+      </div>
+    </div>
+
+    <!-- modal for search not found-->
+    <div class="modal" id="modal-div">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <!-- Display Message -->
+        <div class="box">
+          <article class="media">
+            <div class="media-left">
+              <figure class="image is-64x64">
+                <a class="button is-info">
+                  <i class="fas fa-exclamation-triangle"></i>
+                </a>
+              </figure>
+            </div>
+            <div class="media-content">
+              <div class="content">
+                <p>
+                  <strong class="is-size-5">Message</strong>
+                  <br />
+                  Search Not Found, Please Try Again!
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <button
+        class="modal-close is-large"
+        id="modal-close"
+        aria-label="close"
+      ></button>
+    </div>
+
+    <!-- modal for no input -->
+    <div class="modal" id="modal-div-no-input">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <!-- Display Message -->
+        <div class="box">
+          <article class="media">
+            <div class="media-left">
+              <figure class="image is-64x64">
+                <a class="button is-danger">
+                  <i class="fas fa-search"></i>
+                </a>
+              </figure>
+            </div>
+            <div class="media-content">
+              <div class="content">
+                <p>
+                  <strong class="is-size-5">Message</strong>
+                  <br />
+                  You Need To Type Something!
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <button
+        class="modal-close is-large"
+        id="modal-2-close"
+        aria-label="close"
+      ></button>
+    </div>
+
+    <!-- Table for Covid-19-->
+    <section id="Covid-19-Tests" class="hover">
+      <div
+        class="display-flex is-flex-wrap-wrap is-justify-content-flex-start pl-3 pb-2"
+        id="#Covid-19-Tests"
+      >
+        <iframe
+          src="https://ourworldindata.org/grapher/full-list-cumulative-total-tests-per-thousand"
+          style="width: 100%; height: 300px; border: 0px none"
+        >
+        </iframe>
+      </div>
+    </section>
+
+    <!-- footer-->
+    <footer class="footer has-background-danger">
+      <div class="content has-text-centered">
+        <p>
+          <strong>Covid-19 2020. Stay Safe, Wear a Mask.</strong>
+          Data from Testing was Retrived by Open Source,
+          <a
+            href="https://ourworldindata.org/grapher/full-list-cumulative-total-tests-per-thousand?time=2020-02-20..latest"
+            >https://ourworldindata.org/</a
+          >
+        </p>
+      </div>
+    </footer>
+
+    <!-- scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"
+    ></script>
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/maps.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/geodata/worldLow.js"></script>
+    <script src="https://covid.amCharts.com/data/js/world_timeline.js"></script>
+    <script src="https://covid.amCharts.com/data/js/total_timeline.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>
+=======
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,3 +250,4 @@
     
 </body>
 </html>
+
