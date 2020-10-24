@@ -26,7 +26,7 @@
 
 ## Website URL
 
-TBA
+https://briebencich.github.io/Covid-19-Tracking/#Covid-19-Tests
 
 ## GitHub URL
 
