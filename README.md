@@ -35,16 +35,24 @@ https://github.com/BrieBencich/Covid-19-Tracking.git
 ## Screenshots
 
 This gif demonstrates the user experience:
+Search and Delete:
+![Search and Delete Function](https://user-images.githubusercontent.com/70302749/97069591-5a115200-159f-11eb-9acf-6073dc7f1030.gif)
+Modal:
+![Modal Function](https://user-images.githubusercontent.com/70302749/97069601-65647d80-159f-11eb-9b54-15bf87d7d3f8.gif)
+Map:
+![Map Function](https://user-images.githubusercontent.com/70302749/97069614-70b7a900-159f-11eb-963f-85c6e77b28d6.gif)
+Chart:
+![Chart Function](https://user-images.githubusercontent.com/70302749/97069625-7d3c0180-159f-11eb-8c63-b8619c301b80.gif)
 
 ## Built With
 
-HTML
-CSS
-JavaScript
-jQuery
-Bulma
-Font Awesome
-Server-Side APIs
+- HTML
+- CSS
+- JavaScript
+- jQuery
+- Bulma
+- Font Awesome
+- Server-Side APIs
 
 ## Platform
 
@@ -52,10 +60,10 @@ Web Browsers
 
 ## Server-Side API
 
-https://www.trackcorona.live/api/countries
-https://www.trackcorona.live/api/provinces
-https://www.trackcorona.live/api/cities
-https://www.countryflags.io
+- https://www.trackcorona.live/api/countries
+- https://www.trackcorona.live/api/provinces
+- https://www.trackcorona.live/api/cities
+- https://www.countryflags.io
 
 ## Map License
 
