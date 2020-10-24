@@ -34,7 +34,7 @@ https://github.com/BrieBencich/Covid-19-Tracking.git
 
 ## Screenshots
 
-This gif demonstrates the user experience:\
+The screenshots demonstrate the user experience:\
 Search and Delete:
 ![Search and Delete Function](https://user-images.githubusercontent.com/70302749/97069591-5a115200-159f-11eb-9acf-6073dc7f1030.gif)
 Modal:
